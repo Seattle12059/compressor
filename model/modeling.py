@@ -73,7 +73,8 @@ class CompressLLM(torch.nn.Module):
             ae_position_ids = position_ids
             # print(f"ae_position_ids:{ae_position_ids}")
             if self.task_config["use_pe"]:
-                outputs = self.decoder(position_ids=ae_position_ids, inputs_embeds=ae_emb, past_key_values=concatenated_past_key_values)
+                # outputs = self.decoder(position_ids=ae_position_ids, inputs_embeds=ae_emb, past_key_values=concatenated_past_key_values)
+                outputs = self.decoder(inputs_embeds=ae_emb, past_key_values=concatenated_past_key_values)
             else:
                 outputs = self.decoder(inputs_embeds=ae_emb, past_key_values=concatenated_past_key_values)
             # [B,mem_size+S,V] -> [B,S,V]
@@ -100,7 +101,8 @@ class CompressLLM(torch.nn.Module):
             lm_position_ids = latter_position_ids
             # print(f"lm_position_ids:{lm_position_ids}")
             if self.task_config["use_pe"]:
-                outputs = self.decoder(inputs_embeds=lm_emb, position_ids=lm_position_ids, past_key_values=concatenated_past_key_values)
+                # outputs = self.decoder(inputs_embeds=lm_emb, position_ids=lm_position_ids, past_key_values=concatenated_past_key_values)
+                outputs = self.decoder(inputs_embeds=lm_emb, past_key_values=concatenated_past_key_values)
             else:
                 outputs = self.decoder(inputs_embeds=lm_emb, past_key_values=concatenated_past_key_values)
             # [B,mem_size+S,V] -> [B,S,V]
@@ -127,7 +129,8 @@ class CompressLLM(torch.nn.Module):
             lm_position_ids = latter_position_ids
             # print(f"lm_position_ids:{lm_position_ids}")
             if self.task_config["use_pe"]:
-                outputs = self.decoder(inputs_embeds=lm_emb, position_ids=lm_position_ids, past_key_values=concatenated_past_key_values)
+                # outputs = self.decoder(inputs_embeds=lm_emb, position_ids=lm_position_ids, past_key_values=concatenated_past_key_values)
+                outputs = self.decoder(inputs_embeds=lm_emb, past_key_values=concatenated_past_key_values)
             else:
                 outputs = self.decoder(inputs_embeds=lm_emb, past_key_values=concatenated_past_key_values)
             # [B,mem_size+S,V] -> [B,S,V]
@@ -274,8 +277,11 @@ class CompressLLM(torch.nn.Module):
         next_position_ids = lm_position_ids.clone()
         for i in range(generate_num):
             if self.task_config["use_pe"]:
-                out = self.decoder(position_ids=next_position_ids,
-                                   inputs_embeds=next_inputs_embeds,
+                # out = self.decoder(position_ids=next_position_ids,
+                #                    inputs_embeds=next_inputs_embeds,
+                #                    past_key_values=past_key_values,
+                #                    use_cache=True)
+                out = self.decoder(inputs_embeds=next_inputs_embeds,
                                    past_key_values=past_key_values,
                                    use_cache=True)
             else:
@@ -320,7 +326,8 @@ class CompressLLM(torch.nn.Module):
         for i in range(inputs['input_ids'].size(-1)+20):
             # print(f"next_pids:{next_position_ids}")
             if self.task_config["use_pe"]:
-                out = self.decoder(position_ids=next_position_ids, inputs_embeds=next_inputs_embeds, past_key_values=past_key_values, use_cache=True)
+                # out = self.decoder(position_ids=next_position_ids, inputs_embeds=next_inputs_embeds, past_key_values=past_key_values, use_cache=True)
+                out = self.decoder(inputs_embeds=next_inputs_embeds, past_key_values=past_key_values, use_cache=True)
             else:
                 out = self.decoder(inputs_embeds=next_inputs_embeds, past_key_values=past_key_values, use_cache=True)
             # [B,S,V] -> [B,V]

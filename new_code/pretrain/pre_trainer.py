@@ -237,7 +237,7 @@ def train(rank, args, world_size):
         "mem_size": args.mem_size,
         "compress_ratio": args.compress_ratio,
         "task_type": "Compress",
-        "use_pe": True,       # DPL 原版也是开启 pe
+        "use_pe": False,
         "use_ae_loss": True,  # 预训练阶段 AE+LM
         "use_lm_loss": True,
     }
@@ -416,12 +416,12 @@ if __name__ == "__main__":
 """
 cd pretrain
 
-CUDA_VISIBLE_DEVICES=0,1 python pre_trainer.py \
+CUDA_VISIBLE_DEVICES=0,1,2 python pre_trainer.py \
   --work_dir '../experiment/llama32_1b_500to1' \
   --port 14529 \
   --model_id /home/syt/project/Cram/model/model_scope_model/LLM-Research/Llama-3.2-1B-Instruct \
   --dataset_repo /home/syt/project/compressor_500/data/DKYoon___slim_pajama-6_b \
-  --instruction_dataset_repo /home/syt/project/compressor_500/data/mrqa-workshop_mrqa \
+  --instruction_dataset_repo /home/syt/project/compressor_500/data/mrqa-workshop___mrqa \
   --samples_num 320000 \
   --min_len 510 \
   --max_len 2040 \
@@ -443,7 +443,7 @@ CUDA_VISIBLE_DEVICES=0,1 python pre_trainer.py \
   --port 14530 \
   --model_id /home/syt/project/model/qwen3/Qwen/Qwen3-4B-Instruct-2507 \
   --dataset_repo /home/syt/project/compressor_500/data/DKYoon___slim_pajama-6_b \
-  --instruction_dataset_repo /home/syt/project/compressor_500/data/mrqa-workshop_mrqa \
+  --instruction_dataset_repo /home/syt/project/compressor_500/data/mrqa-workshop___mrqa \
   --samples_num 320000 \
   --min_len 510 \
   --max_len 2040 \

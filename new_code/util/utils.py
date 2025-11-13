@@ -1,9 +1,18 @@
+import random
+import sys
+import os
+
+# 当前文件：.../new_code/pretrain/pre_trainer.py
+PRETRAIN_DIR = os.path.dirname(os.path.abspath(__file__))   # .../new_code/pretrain
+BASE_PATH = os.path.dirname(PRETRAIN_DIR)                   # .../new_code
+
+# 把 new_code 加到 sys.path，方便 import model, util 等模块
+if BASE_PATH not in sys.path:
+    sys.path.append(BASE_PATH)
+
 import logging
 
 import wandb
-from path_config import BASE_PATH
-import sys
-sys.path.append(BASE_PATH)
 import random
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP

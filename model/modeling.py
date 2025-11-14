@@ -3,18 +3,10 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from path_config import BASE_PATH
 sys.path.append(BASE_PATH)
-import logging
-import pdb
-import queue
-from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 from torch import nn
-from torch.nn import CrossEntropyLoss
-from transformers.models.llama.modeling_llama import LlamaForCausalLM
-from transformers.modeling_outputs import CausalLMOutputWithPast
-import torch.nn.functional as F
 import math
-import transformers
 from model.lora import LinearLoraLayer
 
 

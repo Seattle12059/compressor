@@ -237,7 +237,7 @@ def train(rank, args, world_size):
         "mem_size": args.mem_size,
         "compress_ratio": args.compress_ratio,
         "task_type": "Compress",
-        "use_pe": False,
+        "use_pe": True,
         "use_ae_loss": True,  # 预训练阶段 AE+LM
         "use_lm_loss": True,
     }
@@ -416,9 +416,9 @@ if __name__ == "__main__":
 """
 cd pretrain
 
-CUDA_VISIBLE_DEVICES=0,1,2 python pre_trainer.py \
-  --work_dir '../experiment/llama32_1b_500to1' \
-  --port 14529 \
+CUDA_VISIBLE_DEVICES=1,2 python pre_trainer.py \
+  --work_dir '../experiment/llama32_1b_512to16_pe' \
+  --port 14532 \
   --model_id /home/syt/project/Cram/model/model_scope_model/LLM-Research/Llama-3.2-1B-Instruct \
   --dataset_repo /home/syt/project/compressor_500/data/DKYoon___slim_pajama-6_b \
   --instruction_dataset_repo /home/syt/project/compressor_500/data/mrqa-workshop___mrqa \
@@ -426,15 +426,15 @@ CUDA_VISIBLE_DEVICES=0,1,2 python pre_trainer.py \
   --min_len 510 \
   --max_len 2040 \
   --data_output_dir output \
-  --chunk_size 500 \
-  --mem_size 1 \
-  --compress_ratio 500 \
+  --chunk_size 512 \
+  --mem_size 16 \
+  --compress_ratio 32 \
   --batch_size_per_device 1 \
   --gradient_accumulation_steps 8 \
   --learning_rate 1e-4 \
   --max_grad_norm 2.0 \
   --log_step 100 \
-  --save_step 1000
+  --save_step 100
 
 cd pretrain
 

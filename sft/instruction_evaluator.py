@@ -8,22 +8,18 @@ import matplotlib.pyplot as plt
 import torch
 from rouge import Rouge
 from tqdm import tqdm
-from torch.nn import CrossEntropyLoss
-from transformers.models.llama.configuration_llama import LlamaConfig
-from transformers.models.llama.modeling_llama import LlamaForCausalLM
 import numpy as np
 import argparse
-from torch.utils.data import DataLoader, Dataset, IterableDataset
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from torch.utils.data import DataLoader
+from transformers import AutoTokenizer
 
 import logging
 from nltk.translate.bleu_score import sentence_bleu
 
-from torch.nn import DataParallel
 import torch.multiprocessing as mp
 
 from instruction_prepare_data import get_examples
-from model.modeling import get_model, save_adapter, load_adapter
+from model.modeling import get_model, load_adapter
 from instruction_dataloader import get_dataset
 
 def parse_args():
